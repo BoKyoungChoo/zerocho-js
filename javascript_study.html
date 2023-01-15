@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기 제로쵸</title>
+  </head>
+  <body>
+    <div><span id="order">1번째</span> 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text" />
+    <button>입력</button>
+    <script>
+      // const number = parseInt(prompt("몇 명이 참가하나요?"), 10);
+      // alert(number);
+      // const yesOrNo = confirm("맞나요?");
+
+      //01
+      document.querySelector("input").addEventListener("input", function (e) {
+        console.log(e.target.value);
+      });
+      //02
+      const onClick = function () {
+        console.log("버튼 클릭");
+      };
+      document.querySelector("button").addEventListener("click", onClick);
+      //addEventListener("문자열", 함수or함수명)
+      //함수를 따로 빼서 함수명을 넣어도 되고, 그냥 함수로 넣어도 됨.
+      //별 차이는 없지만 중복되는 함수라면 빼주는 게 좋음.
+    </script>
+  </body>
+</html>
