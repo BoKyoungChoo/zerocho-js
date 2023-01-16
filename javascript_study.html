@@ -28,25 +28,26 @@
           //word가 빈값일 때
           word = newWord;
           $word.textContent = word;
-          $input.value = "";
           const order = Number($order.textContent);
           if (order + 1 > number) {
             $order.textContent = 1;
           } else {
             $order.textContent = order + 1;
           }
+          $input.value = "";
+          $input.focus();
         } else {
           if (word[word.length - 1] === newWord[0]) {
             word = newWord;
             $word.textContent = word;
-            $input.value = "";
             const order = Number($order.textContent);
             if (order + 1 > number) {
               $order.textContent = 1;
             } else {
               $order.textContent = order + 1;
             }
-            console.log(word, word[word.length - 1]);
+            $input.value = "";
+            $input.focus();
           } else {
             alert("규칙에 맞지않습니다");
             $input.value = "";
