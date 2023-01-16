@@ -24,7 +24,7 @@
         newWord = event.target.value;
       };
       const onClick = function () {
-        if (!word) {
+        if (!word || word[word.length - 1] === newWord[0]) {
           //word가 빈값일 때
           word = newWord;
           $word.textContent = word;
@@ -34,25 +34,11 @@
           } else {
             $order.textContent = order + 1;
           }
-          $input.value = "";
-          $input.focus();
         } else {
-          if (word[word.length - 1] === newWord[0]) {
-            word = newWord;
-            $word.textContent = word;
-            const order = Number($order.textContent);
-            if (order + 1 > number) {
-              $order.textContent = 1;
-            } else {
-              $order.textContent = order + 1;
-            }
-            $input.value = "";
-            $input.focus();
-          } else {
-            alert("규칙에 맞지않습니다");
-            $input.value = "";
-          }
+          alert("규칙에 맞지않습니다");
         }
+        $input.value = "";
+        $input.focus();
       };
       $input.addEventListener("input", onInput);
       $button.addEventListener("click", onClick);
