@@ -15,34 +15,39 @@
         <button class="btn">쿵쿵따</button>
       </div>
       <script>
-        //단어의 마지막 글자와 첫글자를 확인한다
-        //맞으면 제시어를 바꿔준다
-        //틀리면 경고창
-        //세번째 참가자까지 입력하면 참가자 수가 다시 1로 돌아간다
-
-        // const personNum = parseInt(prompt("참가자 인원수"));
+        const promptMesege = prompt("참가자 인원수");
+        const personNum = parseInt(promptMesege);
         const $order = document.querySelector("#order");
         const $word = document.querySelector("#word");
         const $input = document.querySelector(".input");
         const $btn = document.querySelector(".btn");
         let word;
         let newWord;
+        // console.log("promptMesege=>", promptMesege, "personNum=>", personNum);
+
+        if (promptMesege === null || isNaN(personNum) == true) {
+          document.querySelector("body").innerHTML = "게임 진행 불가";
+        }
 
         function wordEvent() {
-          if (!word) {
-            //단어가 없을 때
-            word = newWord;
-            $word.textContent = word;
-          } else {
-            if (word[word.length - 1] === newWord[0]) {
+          if ($input.value.length === 3) {
+            if (!word || word[word.length - 1] === newWord[0]) {
               word = newWord;
               $word.textContent = word;
+              const order = Number($order.textContent);
+              if (order < personNum) {
+                $order.textContent = order + 1;
+              } else {
+                $order.textContent = 1;
+              }
             } else {
               alert("땡땡땡");
             }
+            $input.value = "";
+            $input.focus();
+          } else {
+            alert("세 글자를 입력해주세요");
           }
-          $input.value = "";
-          $input.focus();
         }
 
         $input.addEventListener("input", (event) => {
