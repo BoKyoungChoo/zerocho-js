@@ -15,50 +15,49 @@
         <button class="btn">쿵쿵따</button>
       </div>
       <script>
-        const promptMesege = prompt("참가자 인원수");
-        const personNum = parseInt(promptMesege);
-        const $order = document.querySelector("#order");
-        const $word = document.querySelector("#word");
-        const $input = document.querySelector(".input");
-        const $btn = document.querySelector(".btn");
-        let word;
-        let newWord;
-        // console.log("promptMesege=>", promptMesege, "personNum=>", personNum);
+        const personNum = parseInt(prompt("참가자 인원수"));
+        if (personNum) {
+          const $order = document.querySelector("#order");
+          const $word = document.querySelector("#word");
+          const $input = document.querySelector(".input");
+          const $btn = document.querySelector(".btn");
+          let word;
+          let newWord;
+          // console.log("promptMesege=>", promptMesege, "personNum=>", personNum);
 
-        if (promptMesege === null || isNaN(personNum) == true) {
+          function wordEvent() {
+            if ($input.value.length === 3) {
+              if (!word || word[word.length - 1] === newWord[0]) {
+                word = newWord;
+                $word.textContent = word;
+                const order = Number($order.textContent);
+                if (order < personNum) {
+                  $order.textContent = order + 1;
+                } else {
+                  $order.textContent = 1;
+                }
+              } else {
+                alert("땡땡땡");
+              }
+              $input.value = "";
+              $input.focus();
+            } else {
+              alert("세 글자를 입력해주세요");
+            }
+          }
+
+          $input.addEventListener("input", (event) => {
+            newWord = event.target.value;
+          });
+          $input.addEventListener("keyup", (event) => {
+            if (event.keyCode === 13) {
+              wordEvent();
+            }
+          });
+          $btn.addEventListener("click", wordEvent);
+        } else {
           document.querySelector("body").innerHTML = "게임 진행 불가";
         }
-
-        function wordEvent() {
-          if ($input.value.length === 3) {
-            if (!word || word[word.length - 1] === newWord[0]) {
-              word = newWord;
-              $word.textContent = word;
-              const order = Number($order.textContent);
-              if (order < personNum) {
-                $order.textContent = order + 1;
-              } else {
-                $order.textContent = 1;
-              }
-            } else {
-              alert("땡땡땡");
-            }
-            $input.value = "";
-            $input.focus();
-          } else {
-            alert("세 글자를 입력해주세요");
-          }
-        }
-
-        $input.addEventListener("input", (event) => {
-          newWord = event.target.value;
-        });
-        $input.addEventListener("keyup", (event) => {
-          if (event.keyCode === 13) {
-            wordEvent();
-          }
-        });
-        $btn.addEventListener("click", wordEvent);
       </script>
     </div>
   </body>
