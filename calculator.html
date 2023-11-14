@@ -65,14 +65,40 @@
       const onClickNumber = (event) => {
         if (operator) {
           numTwo += event.target.textContent;
-          //연산자가 있으면 $result 초기화
           $result.value = numTwo;
-          // $result.value += event.target.textContent;
         } else {
           numOne += event.target.textContent;
-          $result.value += numOne;
+          $result.value = numOne;
         }
         console.log(numOne, numTwo);
+      };
+
+      const onClickOperator = (op) => () => {
+        if (!numOne) return alert("숫자를 먼저 입력하세요");
+
+        operator = op;
+        $operator.value = op;
+      };
+
+      const onClickCalculate = () => {
+        if (!numTwo) return alert("다음 숫자를 입력해주세요.");
+
+        switch (operator) {
+          case "+":
+            $result.value = parseInt(numOne) + parseInt(numTwo);
+            break;
+          case "-":
+            $result.value = numOne - numTwo;
+            break;
+          case "/":
+            $result.value = numOne / numTwo;
+            break;
+          case "x":
+            $result.value = numOne * numTwo;
+            break;
+          default:
+            break;
+        }
       };
 
       document.querySelector("#num-0").addEventListener("click", onClickNumber);
@@ -86,14 +112,6 @@
       document.querySelector("#num-8").addEventListener("click", onClickNumber);
       document.querySelector("#num-9").addEventListener("click", onClickNumber);
 
-      const onClickOperator = (op) => () => {
-        if (numOne) {
-          operator = op;
-          $operator.value = op;
-        } else {
-          alert("숫자를 먼저 입력하세요");
-        }
-      };
       document
         .querySelector("#plus")
         .addEventListener("click", onClickOperator("+"));
@@ -107,13 +125,15 @@
         .querySelector("#multiply")
         .addEventListener("click", onClickOperator("x"));
       document.querySelector("#clear").addEventListener("click", () => {
-        let numOne = "";
-        let operator = "";
-        let numTwo = "";
+        numOne = "";
+        operator = "";
+        numTwo = "";
         $operator.value = "";
         $result.value = "";
       });
-      document.querySelector("#calculate").addEventListener("click", () => {});
+      document
+        .querySelector("#calculate")
+        .addEventListener("click", onClickCalculate);
     </script>
   </body>
 </html>
