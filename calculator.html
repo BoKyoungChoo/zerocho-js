@@ -86,9 +86,13 @@
         operator = op;
         $preview.value = numOne + operator;
 
-        // if (numTwo) {
-        //   onClickCalculate();
-        // }
+        if (numTwo) {
+          numOne += numTwo;
+          numTwo = "";
+          operator = "";
+          // $result.value = parseInt(numOne) + op + parseInt(numTwo);
+          // console.log(parseInt(numOne) + op + parseInt(numTwo));
+        }
       };
 
       const onClickCalculate = () => {
