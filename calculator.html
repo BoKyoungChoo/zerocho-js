@@ -64,59 +64,66 @@
     </div>
     <script>
       let numOne = "";
-      let operator = "";
       let numTwo = "";
+      let operator = "";
       const $preview = document.querySelector("#preview");
       const $result = document.querySelector("#result");
 
       const onClickNumber = (event) => {
+        const clickText = event.target.textContent;
+        const clickNum = Number(clickText);
+
         if (operator) {
-          numTwo += event.target.textContent;
+          numTwo += clickNum;
           $result.value = numTwo;
         } else {
-          numOne += event.target.textContent;
+          numOne += clickNum;
           $result.value = numOne;
         }
-        console.log(numOne, numTwo);
+        console.log(numOne, numTwo, operator);
       };
 
-      const onClickOperator = (op) => () => {
-        if (!numOne) return alert("숫자를 먼저 입력하세요");
-
-        operator = op;
-        $preview.value = numOne + operator;
-
-        if (numTwo) {
-          numOne += numTwo;
-          numTwo = "";
-          operator = "";
-          // $result.value = parseInt(numOne) + op + parseInt(numTwo);
-          // console.log(parseInt(numOne) + op + parseInt(numTwo));
-        }
-      };
-
-      const onClickCalculate = () => {
-        console.log("= 클릭");
+      const calculateFn = () => {
         if (!numTwo) return alert("다음 숫자를 입력해주세요.");
 
         switch (operator) {
           case "+":
             $result.value = parseInt(numOne) + parseInt(numTwo);
-            break;
+            return parseInt(numOne) + parseInt(numTwo);
           case "-":
             $result.value = numOne - numTwo;
-            break;
+            return numOne - numTwo;
           case "/":
             $result.value = numOne / numTwo;
-            break;
+            return numOne / numTwo;
           case "x":
             $result.value = numOne * numTwo;
-            break;
+            return numOne * numTwo;
           default:
             break;
         }
+      };
 
-        $preview.value += numTwo + "=";
+      const onClickOperator = (op) => () => {
+        if (!numOne) return alert("숫자를 먼저 입력하세요");
+
+        if (numTwo) {
+          const calculateNum = calculateFn();
+          numOne = calculateNum;
+          numTwo = 0;
+          operator = "";
+        }
+
+        operator = op;
+        $preview.value = numOne + operator;
+
+        console.log(numOne, numTwo, operator);
+      };
+
+      const onClickCalculate = () => {
+        calculateFn();
+
+        $preview.value = `${numOne}${operator}${numTwo}=`;
       };
 
       //숫자 클릭
@@ -147,9 +154,9 @@
 
       //삭제 클릭
       document.querySelector("#clear").addEventListener("click", () => {
-        numOne = "";
+        numOne = 0;
+        numTwo = 0;
         operator = "";
-        numTwo = "";
         $result.value = "";
         $preview.value = "";
       });
