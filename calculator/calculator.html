@@ -110,7 +110,7 @@
         if (numTwo) {
           const calculateNum = calculateFn();
           numOne = calculateNum;
-          numTwo = 0;
+          numTwo = "";
           operator = "";
         }
 
@@ -154,8 +154,8 @@
 
       //삭제 클릭
       document.querySelector("#clear").addEventListener("click", () => {
-        numOne = 0;
-        numTwo = 0;
+        numOne = "";
+        numTwo = "";
         operator = "";
         $result.value = "";
         $preview.value = "";
