@@ -23,9 +23,32 @@
     }
     const answer = [];
     for (let n = 0; n < 4; n++) {
-      const index = Math.floor(Math.random() * (9 - n));
+      const index = Math.floor(Math.random() * numbers.length);
       answer.push(numbers[index]);
       numbers.splice(index, 1);
     }
+
+    const tries = [];
+    const checkInputValue = (input) => {
+      if (input.length !== 4) {
+        return alert("4자리 숫자를 입력해 주세요.");
+      }
+      if (new Set(input).size !== 4) {
+        return alert("중복되지 않게 입력해 주세요.");
+        if (tries.includes(input)) {
+          return alert("중복되지 않게 입력해 주세요.");
+        }
+        return true;
+      }
+    };
+
+    $form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const value = e.target[0].value;
+      e.target[0].value = "";
+      if (checkInputValue(value)) {
+      } else {
+      }
+    });
   </script>
 </html>
